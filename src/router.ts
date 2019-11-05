@@ -3,10 +3,9 @@ import Router from 'vue-router';
 import Login from './views/login.vue';
 
 Vue.use(Router);
-
 const router = new Router({
   mode: 'history',
-  base: process.env.BASE_URL,
+  base: '/system/',
   routes: [
     {
       path: '/login',
@@ -41,7 +40,10 @@ const router = new Router({
   ],
 });
 router.beforeEach((to, from, next) => {
-  if (to.path === '/' || to.path === '/system') {
+  if (to.path === '/') {
+    router.replace('/login');
+  }
+  if (to.path === '/system/system') {
     router.replace('/system/index');
   }
   next();
