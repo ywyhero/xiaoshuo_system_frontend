@@ -30,7 +30,7 @@ Axios.interceptors.response.use((config: any) => {
             message: '登陆过期，请重新登录。',
             onClose: () => {
                 window.sessionStorage.removeItem('token');
-                location.href = '/login';
+                location.href = '/system';
             },
         });
     }
@@ -49,7 +49,7 @@ Axios.interceptors.response.use((config: any) => {
             message: '登陆过期，请重新登录。',
             onClose: () => {
                 window.sessionStorage.removeItem('token');
-                location.href = '/login';
+                location.href = '/system';
             },
         });
     }
