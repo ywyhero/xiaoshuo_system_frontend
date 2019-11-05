@@ -97,7 +97,7 @@ export default class Uploader extends Vue {
                 message: res.data.msg,
             });
         }
-        this.imageUrl = URL.createObjectURL(file.raw);
+        this.imageUrl = res.data.imgUrl;
     }
     private async getTypes() {
         const data: any = await Common.types({});
@@ -126,6 +126,7 @@ export default class Uploader extends Vue {
             name: this.name,
             type: this.type,
             typeName: typeName.name,
+            imageUrl: this.imageUrl,
         });
         this.$router.push('/system/lists');
         Message({
