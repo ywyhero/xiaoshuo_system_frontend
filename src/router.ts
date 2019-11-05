@@ -1,25 +1,49 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
+import Login from './views/login.vue';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: Home,
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+      path: '/login',
+      name: 'login',
+      component: Login,
+    }, {
+      path: '/system',
+      name: 'sysIndex',
+      component: () => import('./views/index.vue'),
+      children: [
+        {
+          path: 'index',
+          component: () => import('./views/sysIndex.vue'),
+        }, {
+          path: 'upload',
+          component: () => import('./views/upload/upload.vue'),
+        }, {
+          path: 'uploadTxt',
+          component: () => import('./views/upload/uploadTxt.vue'),
+        }, {
+          path: 'lists',
+          component: () => import('./views/booklists.vue'),
+        }, {
+          path: 'chapters',
+          component: () => import('./views/chapters.vue'),
+        }, {
+          path: 'detail',
+          component: () => import('./views/bookdetail.vue'),
+        },
+      ],
     },
   ],
 });
+router.beforeEach((to, from, next) => {
+  if (to.path === '/' || to.path === '/system') {
+    router.replace('/system/index');
+  }
+  next();
+});
+export default router;
