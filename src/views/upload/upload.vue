@@ -65,6 +65,7 @@ export default class Uploader extends Vue {
     private author: string = '';
     private btnVal: string = '确认上传';
     private imageUrl: string = '';
+    private imgUrl: string = '';
     private bookId: number | null = null;
     private type: string | number = '';
     private types: TypesObj[] = [];
@@ -97,7 +98,8 @@ export default class Uploader extends Vue {
                 message: res.data.msg,
             });
         }
-        this.imageUrl = res.data.imgUrl;
+        this.imageUrl = URL.createObjectURL(file.raw);
+        this.imgUrl = res.data.imgUrl;
     }
     private async getTypes() {
         const data: any = await Common.types({});
@@ -126,7 +128,7 @@ export default class Uploader extends Vue {
             name: this.name,
             type: this.type,
             typeName: typeName.name,
-            imageUrl: this.imageUrl,
+            imgUrl: this.imgUrl,
         });
         this.$router.push('/system/lists');
         Message({
