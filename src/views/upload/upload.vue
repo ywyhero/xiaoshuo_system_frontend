@@ -77,7 +77,7 @@ export default class Uploader extends Vue {
         imgUrl: '',
     };
     public async created() {
-        this.actionUrl = `${ENV.api}/api/upload`;
+        this.actionUrl = `${ENV.api}/upload`;
         const bookInfo: any = this.$route.query.bookInfo;
         if (bookInfo) {
             this.bookInfo = JSON.parse(bookInfo);
