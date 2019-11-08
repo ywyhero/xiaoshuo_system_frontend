@@ -3,7 +3,7 @@
         <div class="book-search">
             <div class="book-search-list">
                 <span class="book-search-val">小说ID:</span>
-                <el-input type="text" v-model.number="bookId" clearable></el-input>
+                <el-input type="text" class="search-id" v-model.number="bookId" clearable></el-input>
             </div>
             <div class="book-search-list">
                 <span class="book-search-val">小说类型:</span>
@@ -16,8 +16,31 @@
                     </el-option>
                 </el-select>
             </div>
-            <el-button type="primary" @click="searchEvent">查询</el-button>
+            <div class="book-search-list">
+                <span class="book-search-val">喜欢人群:</span>
+                <el-select v-model="like" placeholder="请选择" clearable @clear="clearLike">
+                    <el-option
+                    v-for="item in CommonData.like"
+                    :key="item.id"
+                    :label="item.value"
+                    :value="item.id">
+                    </el-option>
+                </el-select>
+            </div>
+            <div class="book-search-list">
+                <span class="book-search-val">是否完本:</span>
+                <el-select v-model="isOver" placeholder="请选择" clearable @clear="clearOver">
+                    <el-option
+                    v-for="item in CommonData.isOver"
+                    :key="item.id"
+                    :label="item.value"
+                    :value="item.id">
+                    </el-option>
+                </el-select>
+            </div>
+           
         </div>
+        <el-button type="primary" class="search-btn" @click="searchEvent">查询</el-button>
         <div class="book-main">
             <el-table
                 :data="bookLists"
@@ -45,21 +68,38 @@
                 width="100">
                 </el-table-column>
                 <el-table-column
-                label="小说封面"
-                width="120">
+                width="100px"
+                label="小说封面">
                     <template slot-scope="scope">
                         <img class="book-list-img" :src="scope.row.imgUrl"/>
                     </template>
                 </el-table-column>
                 <el-table-column
-                label="创建时间"
-                width="180">
+                label="喜欢人群">
+                    <template slot-scope="scope">
+                        <span>{{scope.row.like === 1 ? "男生频道" : "女生频道"}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                label="是否完本">
+                    <template slot-scope="scope">
+                        <span>{{scope.row.isOver === 1 ? "连载中" : "已完结"}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                width="132px"
+                label="创建时间">
                     <template slot-scope="scope">
                         <span>{{scope.row.createTime}}</span>
                     </template>
                 </el-table-column>
+                <el-table-column
+                label="点击数据"
+                prop="readCount">
+                </el-table-column>
                  <el-table-column
                 label="操作"
+                width="240px"
                 >
                     <template slot-scope="scope">
                         <div class="book-list-change">
@@ -89,6 +129,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { Option, Select, Table, TableColumn, Pagination, Button, Input, MessageBox, Message } from 'element-ui';
 import Common from './../service/common';
 import MkTime from 'mktime';
+import CommonData from './../utils/commonData';
 @Component({
     components: {
         'el-select': Select,
@@ -102,12 +143,15 @@ import MkTime from 'mktime';
 })
 export default class BookLists extends Vue {
     private type: number | string = '';
+    private like: number | string = '';
+    private isOver: number | string = '';
     private bookId: number | string = '';
     private total: number = 0;
     private pageSize: number = 20;
     private pageNo: number = 1;
     private currentPage: number = 1;
     private types: object[] = [{}];
+    private CommonData: object = CommonData;
     private bookLists: object[] = [{}];
     public async created() {
         await this.getTypes();
@@ -123,6 +167,8 @@ export default class BookLists extends Vue {
             pageNo: this.pageNo,
             bookId: this.bookId,
             type: this.type,
+            like: this.like,
+            isOver: this.isOver,
         });
         this.bookLists =  data.lists.map((v: any) => {
             v.createTime = MkTime.format(v.createTime / 1000, 7);
@@ -132,6 +178,12 @@ export default class BookLists extends Vue {
     }
     private clearType() {
         this.type = '';
+    }
+    private clearLike() {
+        this.like = '';
+    }
+    private clearOver() {
+        this.isOver = '';
     }
     private searchEvent() {
         this.pageNo = 1;
@@ -192,15 +244,24 @@ export default class BookLists extends Vue {
 .book-search{
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 .book-search-list{
     display: flex;
     align-items: center;
     margin-right: 20px;
+    margin-top: 20px;
 }
 .book-search-val{
     margin-right: 10px;
     width: 100px;
+}
+.search-id {
+    width: 202.73px;
+}
+.search-btn{
+    width: 100px;
+    margin-top: 20px;
 }
 .book-main{
     margin-top: 20px;

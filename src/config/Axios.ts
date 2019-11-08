@@ -43,7 +43,7 @@ Axios.interceptors.response.use((config: any) => {
     }
     return config.data;
 }, (err: any) => {
-    if (err.response.status === 401) {
+    if (err.response && err.response.status === 401) {
         return Message({
             type: 'error',
             message: '登陆过期，请重新登录。',
@@ -53,6 +53,7 @@ Axios.interceptors.response.use((config: any) => {
             },
         });
     }
+    err.type = 'timeout';
     return Promise.reject(err);
 });
 export default Axios;
