@@ -24,6 +24,9 @@ export default class Home extends Vue {
   private username: string = '';
   private password: string = '';
   private async login() {
+    if (window.sessionStorage.getItem('token')) {
+      window.sessionStorage.removeItem('token');
+    }
     const data: any = await Common.login({
       username: this.username,
       password: this.password,

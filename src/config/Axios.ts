@@ -20,7 +20,7 @@ Axios.interceptors.request.use((config: any) => {
 });
 // aixos response拦截
 Axios.interceptors.response.use((config: any) => {
-    const token = config.headers.authorization;
+    const token = config.headers && config.headers.authorization;
     if (token) {
         window.sessionStorage.setItem('token', token.split(' ')[1]);
     }
