@@ -1,6 +1,6 @@
 const CONFIG = {
     LOCAL: {
-        api: 'http://192.168.44.132:3000/api',
+        api: 'http://192.168.44.96:3000/api',
     },
     PROD: {
         // api: 'http://www.vinekan.com:3000/api',

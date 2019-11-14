@@ -8,9 +8,22 @@
             <span class="upload-title-val">小说作者：</span>
             <el-input class="upload-title-input" v-model="author"></el-input>
         </div>
+        
+        <div class="upload-types">
+            <span class="upload-title-val">喜欢人群：</span>
+            <el-select v-model="like" placeholder="请选择" @change="selectLikeEvent">
+                <el-option
+                v-for="item in CommonData.like"
+                :key="item.id"
+                :label="item.value"
+                :value="item.id"
+                >
+                </el-option>
+            </el-select>
+        </div>
         <div class="upload-types">
             <span class="upload-title-val">小说类型：</span>
-            <el-select v-model="type" placeholder="请选择" @change="selectEvent">
+            <el-select v-model="type" placeholder="请选择" :disabled="isDisabled" @change="selectEvent">
                 <el-option
                 v-for="item in types"
                 :key="item.id"
@@ -20,19 +33,8 @@
             </el-select>
         </div>
         <div class="upload-types">
-            <span class="upload-title-val">喜欢人群：</span>
-            <el-select v-model="like" placeholder="请选择" @change="selectEvent">
-                <el-option
-                v-for="item in CommonData.like"
-                :key="item.id"
-                :label="item.value"
-                :value="item.id">
-                </el-option>
-            </el-select>
-        </div>
-        <div class="upload-types">
             <span class="upload-title-val">是否完结：</span>
-            <el-select v-model="isOver" placeholder="请选择" @change="selectEvent">
+            <el-select v-model="isOver" placeholder="请选择">
                 <el-option
                 v-for="item in CommonData.isOver"
                 :key="item.id"
@@ -91,6 +93,7 @@ interface BookInfo {
 
 export default class Uploader extends Vue {
     private name: string = '';
+    private isDisabled: boolean = true;
     private author: string = '';
     private btnVal: string = '确认上传';
     private imageUrl: string = '';
@@ -129,7 +132,6 @@ export default class Uploader extends Vue {
             this.des = this.bookInfo.description;
             this.btnVal = '确认修改';
         }
-        this.getTypes();
     }
     private handleAvatarSuccess(res: any, file: any) {
         if (res.code !== 200) {
@@ -142,8 +144,15 @@ export default class Uploader extends Vue {
         this.imgUrl = res.data.imgUrl;
     }
     private async getTypes() {
-        const data: any = await Common.types({});
+        const data: any = await Common.types({
+            like: this.like,
+        });
         this.types = data.types;
+    }
+    private selectLikeEvent(e: number) {
+        this.like = e;
+        this.isDisabled = false;
+        this.getTypes();
     }
     private selectEvent(e: number) {
         this.type = e;
