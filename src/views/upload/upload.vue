@@ -131,6 +131,8 @@ export default class Uploader extends Vue {
             this.isOver = this.bookInfo.isOver;
             this.des = this.bookInfo.description;
             this.btnVal = '确认修改';
+            this.getTypes();
+            this.isDisabled = false;
         }
     }
     private handleAvatarSuccess(res: any, file: any) {
