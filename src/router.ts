@@ -34,6 +34,12 @@ const router = new Router({
         }, {
           path: 'detail',
           component: () => import('./views/bookdetail.vue'),
+        }, {
+          path: 'storyLog',
+          component: () => import('./views/storyLog.vue'),
+        }, {
+          path: 'options',
+          component: () => import('./views/options.vue'),
         },
       ],
     },

@@ -33,5 +33,12 @@ const Common = {
     deleteChapter(data: any) {
         return http('POST', '/deleteChapter', data);
     },
+    stoyLogs(data: any) {
+        return http('POST', '/storyLogs', data);
+    },
+    optionsLogs(data: any) {
+        return http('POST', '/optionsLogs', data);
+    },
+
 };
 export default Common;

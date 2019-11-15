@@ -164,6 +164,14 @@ export default class Index extends Vue {
             id: '12',
             name: '上传小说',
             url: '/system/upload',
+        }, {
+            id: '13',
+            name: '留言日志',
+            url: '/system/storyLog',
+        }, {
+            id: '14',
+            name: '建议日志',
+            url: '/system/options',
         }],
     }];
     public created() {

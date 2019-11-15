@@ -54,6 +54,10 @@
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
         </div>
+        <div class="upload-types">
+            <span class="upload-textarea-val">关键词：</span>
+            <el-input class="upload-title-input" v-model="keyword"></el-input>
+        </div>
         <div class="upload-textarea">
             <span class="upload-textarea-val">小说简介：</span>
             <el-input class="upload-textarea-input" type="textarea" :rows="3" resize="none" v-model="des"></el-input>
@@ -78,6 +82,7 @@ interface BookInfo {
     type: number;
     imgUrl: string;
     like: number;
+    keyword: string;
     isOver: number;
     description: string;
 }
@@ -93,6 +98,7 @@ interface BookInfo {
 
 export default class Uploader extends Vue {
     private name: string = '';
+    private keyword: string = '';
     private isDisabled: boolean = true;
     private author: string = '';
     private btnVal: string = '确认上传';
@@ -114,6 +120,7 @@ export default class Uploader extends Vue {
         imgUrl: '',
         like: 0,
         isOver: 0,
+        keyword: '',
         description: '',
     };
     public async created() {
@@ -130,6 +137,7 @@ export default class Uploader extends Vue {
             this.like = this.bookInfo.like;
             this.isOver = this.bookInfo.isOver;
             this.des = this.bookInfo.description;
+            this.keyword = this.bookInfo.keyword;
             this.btnVal = '确认修改';
             this.getTypes();
             this.isDisabled = false;
@@ -182,6 +190,7 @@ export default class Uploader extends Vue {
             imgUrl: this.imgUrl,
             like: this.like,
             isOver: this.isOver,
+            keyword: this.keyword,
             description: this.des,
         });
         this.$router.push('/system/lists');
@@ -251,7 +260,7 @@ export default class Uploader extends Vue {
     align-items: center;
     margin-top: 40px;
 }
-.upload-textarea-val{
+.upload-textarea-val,{
     width: 80px;
 }
 .upload-textarea-input{
