@@ -3,8 +3,8 @@ const CONFIG = {
         api: 'http://192.168.44.96:3000/api',
     },
     PROD: {
-        // api: 'https://www.vinekan.com:3000/api',
-        api: 'http://47.105.109.192:3000/api',
+        api: 'https://www.vinekan.com:3000/api',
+        // api: 'http://47.105.109.192:3000/api',
     },
 };
 interface ConfigObj {
