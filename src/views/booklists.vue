@@ -181,7 +181,7 @@ export default class BookLists extends Vue {
             isOver: this.isOver,
         });
         this.bookLists =  data.lists.map((v: any) => {
-            v.createTime = MkTime.format(v.createTime / 1000, 7);
+            v.createTime = MkTime.format(v.createTime, 7);
             return v;
         });
         this.total = data.total;
