@@ -55,13 +55,13 @@ export default class Bookdetail extends Vue {
         this.$router.push(`/system/chapters?bookId=${this.bookId}&name=${this.name}`);
     }
     private async getChapterDetail() {
-        const data: any = await Common.getChapterDetail({
+        const { data }: any = await Common.getChapterDetail({
             bookId: this.bookId,
             chapterId: this.chapterId,
         });
         const chapter = data.chapter;
-        this.chapterName = chapter.name;
-        this.content = chapter.content;
+        this.chapterName = chapter.chapterName;
+        this.content = data.content.content;
     }
 }
 </script>

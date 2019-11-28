@@ -22,7 +22,7 @@
                 border
                 style="width: 100%">
                 <el-table-column
-                prop="name"
+                prop="chapterName"
                 label="目录名称"
                 width="180">
                 </el-table-column>
@@ -106,7 +106,7 @@ export default class Chapters extends Vue {
             chapterId: this.chapterSearchId,
         });
         this.chapterLists =  data.chapters.map((v: ChapterObj) => {
-            v.createTime = MkTime.format(v.createTime / 1000, 7);
+            v.createTime = MkTime.format(v.createTime, 7);
             return v;
         });
         this.total = data.total;

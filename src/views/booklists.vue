@@ -6,19 +6,8 @@
                 <el-input type="text" class="search-id" v-model.number="bookId" clearable></el-input>
             </div>
             <div class="book-search-list">
-                <span class="book-search-val">小说类型:</span>
-                <el-select v-model="type" placeholder="请选择" clearable @clear="clearType">
-                    <el-option
-                    v-for="item in types"
-                    :key="item.id"
-                    :label="item.name"
-                    :value="item.id">
-                    </el-option>
-                </el-select>
-            </div>
-            <div class="book-search-list">
                 <span class="book-search-val">喜欢人群:</span>
-                <el-select v-model="like" placeholder="请选择" clearable @clear="clearLike">
+                <el-select v-model="like" placeholder="请选择" @change="likeHandler" clearable @clear="clearLike">
                     <el-option
                     v-for="item in CommonData.like"
                     :key="item.id"
@@ -27,6 +16,18 @@
                     </el-option>
                 </el-select>
             </div>
+            <div class="book-search-list">
+                <span class="book-search-val">小说类型:</span>
+                <el-select v-model="type" placeholder="请选择" :disabled="disabled" clearable @clear="clearType">
+                    <el-option
+                    v-for="item in types"
+                    :key="item.id"
+                    :label="item.name"
+                    :value="item.id">
+                    </el-option>
+                </el-select>
+            </div>
+            
             <div class="book-search-list">
                 <span class="book-search-val">是否完本:</span>
                 <el-select v-model="isOver" placeholder="请选择" clearable @clear="clearOver">
@@ -151,15 +152,24 @@ export default class BookLists extends Vue {
     private pageNo: number = 1;
     private currentPage: number = 1;
     private types: object[] = [{}];
+    private disabled: boolean = true;
     private CommonData: object = CommonData;
     private bookLists: object[] = [{}];
     public async created() {
-        await this.getTypes();
         await this.getBooks();
     }
     private async getTypes() {
-        const data: any = await Common.types({});
+        const data: any = await Common.types({
+            like: this.like,
+        });
         this.types = data.types;
+    }
+    private async likeHandler(e: any) {
+        if (e) {
+            this.like = e;
+            this.disabled = false;
+            await this.getTypes();
+        }
     }
     private async getBooks() {
         const data: any = await Common.bookLists({
@@ -180,7 +190,9 @@ export default class BookLists extends Vue {
         this.type = '';
     }
     private clearLike() {
+        this.type = '';
         this.like = '';
+        this.disabled = true;
     }
     private clearOver() {
         this.isOver = '';
