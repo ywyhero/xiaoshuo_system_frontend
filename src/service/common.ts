@@ -24,6 +24,9 @@ const Common = {
     addChapter(data: any) {
         return http('POST', '/addChapter', data);
     },
+    addChapters(data: any) {
+        return http('POST', '/addChapters', data);
+    },
     getChapters(data: any) {
         return http('POST', '/getChapters', data);
     },

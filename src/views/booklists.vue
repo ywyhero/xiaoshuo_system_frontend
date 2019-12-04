@@ -107,6 +107,7 @@
                             <el-button type="text" @click="toDetail(scope.row)">详情</el-button>
                             <el-button type="text" @click="editChapter(scope.row)">编辑</el-button>
                             <el-button type="text" @click="addChapter(scope.row)">添加章节</el-button>
+                            <el-button type="text" @click="addChapters(scope.row)">添加多章节</el-button>
                             <el-button type="text" @click="deleteBookEvent(scope.row)">删除小说</el-button>
                         </div>
                     </template>
@@ -204,6 +205,9 @@ export default class BookLists extends Vue {
     }
     private addChapter(item: any) {
         this.$router.push(`/system/detail?bookId=${item.bookId}&name=${item.name}`);
+    }
+    private addChapters(item: any) {
+        this.$router.push(`/system/addChapters?bookId=${item.bookId}&name=${item.name}`);
     }
     private editChapter(item: any) {
         this.$router.push(`/system/upload?bookInfo=${JSON.stringify(item)}`);

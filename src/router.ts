@@ -40,6 +40,9 @@ const router = new Router({
         }, {
           path: 'options',
           component: () => import('./views/options.vue'),
+        }, {
+          path: 'addChapters',
+          component: () => import('./views/addChapters.vue'),
         },
       ],
     },
