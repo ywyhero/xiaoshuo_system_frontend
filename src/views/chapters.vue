@@ -97,6 +97,9 @@ export default class Chapters extends Vue {
         this.name = this.$route.query.name;
         this.getChapters();
     }
+     public activated() {
+        this.getChapters();
+    }
     private async getChapters() {
         const data: any = await Common.getChapters({
             bookId: this.bookId,
@@ -172,6 +175,7 @@ export default class Chapters extends Vue {
 }
 .chapters-main{
     flex: 1;
+    overflow-y: auto; 
 }
 .chapters-search-list{
     display: flex;

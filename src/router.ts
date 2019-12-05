@@ -31,6 +31,9 @@ const router = new Router({
         }, {
           path: 'chapters',
           component: () => import('./views/chapters.vue'),
+          meta: {
+            keepAlive: true,
+          },
         }, {
           path: 'detail',
           component: () => import('./views/bookdetail.vue'),
