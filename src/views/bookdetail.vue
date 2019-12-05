@@ -61,7 +61,7 @@ export default class Bookdetail extends Vue {
         });
         const chapter = data.chapter;
         this.chapterName = chapter.chapterName;
-        this.content = data.content.content;
+        this.content = data.content && data.content.content;
     }
 }
 </script>
