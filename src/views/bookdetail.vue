@@ -35,6 +35,7 @@ export default class Bookdetail extends Vue {
     public created() {
         this.name = this.$route.query.name;
         this.bookId = this.$route.query.bookId;
+        console.log(this.bookId)
         this.chapterId = this.$route.query.chapterId;
         this.from = this.$route.query.from;
         if (this.from === 'chapter') {

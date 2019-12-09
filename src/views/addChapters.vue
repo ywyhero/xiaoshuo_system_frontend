@@ -22,7 +22,7 @@
         </div>
         <div class="add-chapters-li">
             <span class="add-chapters-li-val">章节链接是否有主域名：</span>
-            <el-input v-model="isHasHost" placeholder="请填写1或0"/>
+            <el-input v-model.number="initCount" placeholder="请填写初始值，默认0"/>
         </div>
         <div class="add-chapters-li">
             <span class="add-chapters-li-val">域名：</span>
@@ -46,7 +46,7 @@ export default class AddChapters extends Vue {
     private bookName: string | Array<string | null> = '';
     private url: string = '';
     private host: string = '';
-    private isHasHost: string = '';
+    private initCount: number = 0;
     private htmlCharset: string = '';
     private chapterClassId: string = '';
     private contentClassId: string = '';
@@ -61,7 +61,7 @@ export default class AddChapters extends Vue {
             chapterClassId: this.chapterClassId,
             contentClassId: this.contentClassId,
             host: this.host,
-            isHasHost: this.isHasHost,
+            initCount: this.initCount,
             htmlCharset: this.htmlCharset,
             url: this.url,
             bookId: this.bookId,
